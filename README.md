@@ -9,6 +9,21 @@ Regras de segurança perimetral e mitigação de ameaças na borda para Cloudfla
 
 Desenvolvido e mantido pela equipa de engenharia de segurança perimetral da **[TAVARDT Portugal](https://ag.tavardt.com/pt/ciberseguranca/)**.
 
+> [!IMPORTANT]
+> **Arquitetura Universal & Agnóstica de Stack:** Este repositório **não é restrito ao WordPress**. Foi arquitetado para proteger **APIs REST, microsserviços modernos, aplicações web (Next.js, React, Vue) e plataformas de backend (Node.js, Python, Go, Laravel, Java)**. O bloqueio de pedidos a CMS legados atua como uma **camada de higiene perimetral ativa**, descartando o tráfego parasita de botnets na rede da Cloudflare (< 1ms) antes que sobrecarregue os seus servidores de origem.
+
+---
+
+### Matriz de Proteção Multi-Stack
+
+| Camada de Defesa | Vetores Mitigados | Plataformas & Stacks Protegidas |
+| :--- | :--- | :--- |
+| **Isolamento de Credenciais** | Bloqueio de `.env`, `.git`, `.sql`, `package.json`, `composer.json` | **APIs, Next.js, Node.js, Python, Go, Laravel, React** |
+| **Mitigação de Reconhecimento** | Bloqueio de Nikto, SQLMap, Acunetix, Masscan, Gobuster, Nmap | **Qualquer plataforma web, microsserviço ou API pública** |
+| **Higiene de Verbos HTTP** | Rejeição de métodos desnecessários (`TRACE`, `TRACK`, `DEBUG`) | **APIs RESTful e arquiteturas de microsserviços** |
+| **Desafio em Painéis** | Desafio gerido em rotas críticas (`/admin`, `/wp-login.php`) | **Consolas de administração, portais ERP e back-offices** |
+| **Higiene de Ruído Cego** | Descarte na borda de pedidos a `/xmlrpc.php` e trackbacks | **Redução imediata de processamento nos servidores de origem** |
+
 ---
 
 ## 1. Visão Geral da Arquitetura Perimetral
