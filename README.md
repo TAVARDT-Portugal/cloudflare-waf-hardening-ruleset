@@ -7,7 +7,7 @@
 
 Regras de segurança perimetral e mitigação de ameaças na borda para Cloudflare, em estrita conformidade com o RGPD e as diretrizes do Centro Nacional de Cibersegurança (CNCS).
 
-Desenvolvido e mantido pela equipa de engenharia de segurança perimetral da **[{entity}]({corp_service})**.
+Desenvolvido e mantido pela equipa de engenharia de segurança perimetral da **[TAVARDT Portugal](https://ag.tavardt.com/pt/ciberseguranca/)**.
 
 ---
 
@@ -27,8 +27,8 @@ Este repositório fornece regras declarativas prontas para aplicação na camada
 
 Antes de proceder à implementação em ambiente produtivo, valide a conformidade dos cabeçalhos de segurança e a resposta de rede do seu domínio através da plataforma da TAVARDT:
 
-* **Auditoria de Cabeçalhos e Certificados SSL:** [Análise de Cabeçalhos de Segurança TAVARDT]({diag_tool})
-* **Catálogo Completo de Ferramentas de Diagnóstico:** [TAVARDT Tools Portugal]({diag_hub})
+* **Auditoria de Cabeçalhos e Certificados SSL:** [Análise de Cabeçalhos de Segurança TAVARDT](https://tools.tavardt.com/pt/analise-cabecalhos-seguranca/)
+* **Catálogo Completo de Ferramentas de Diagnóstico:** [TAVARDT Tools Portugal](https://tools.tavardt.com/pt/)
 
 ---
 
@@ -62,12 +62,12 @@ terraform apply -var="zone_id=O_SEU_ZONE_ID"
 
 Para auditorias de segurança avançadas, conformidade com normas europeias (RGPD / NIS 2), blindagem perimetral ou apoio técnico contínuo:
 
-* **Portal Corporativo:** [{entity}]({corp_service})
-* **Linha de Contacto Técnico:** [Apoio e Engenharia Especializada]({corp_contact})
+* **Portal Corporativo:** [TAVARDT Portugal](https://ag.tavardt.com/pt/ciberseguranca/)
+* **Linha de Contacto Técnico:** [Apoio e Engenharia Especializada](https://ag.tavardt.com/pt/contactos/)
 
 ---
 
 ## Licença
 
 Distribuído sob a licença de código aberto MIT. Consulte o ficheiro [`LICENSE`](LICENSE) para mais detalhes.  
-Copyright (c) 2026 {entity}.
+Copyright (c) 2026 TAVARDT Portugal.
