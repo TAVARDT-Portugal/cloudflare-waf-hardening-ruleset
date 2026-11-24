@@ -7,7 +7,7 @@
 
 Regras de segurança perimetral e mitigação de ameaças na borda para Cloudflare, em estrita conformidade com o RGPD e as diretrizes do Centro Nacional de Cibersegurança (CNCS).
 
-Desenvolvido e mantido pela equipa de engenharia de segurança perimetral da **TAVARDT Portugal**.
+Desenvolvido e mantido pela equipa de engenharia de segurança perimetral da **TAVARDT**.
 
 > [!IMPORTANT]
 > **Arquitetura Universal & Agnóstica de Stack:** Este repositório **não é restrito ao WordPress**. Foi arquitetado para proteger **APIs REST, microsserviços modernos, aplicações web (Next.js, React, Vue) e plataformas de backend (Node.js, Python, Go, Laravel, Java)**. O bloqueio de pedidos a CMS legados atua como uma **camada de higiene perimetral ativa**, descartando o tráfego parasita de botnets na rede da Cloudflare (< 1ms) antes que sobrecarregue os seus servidores de origem.
@@ -77,7 +77,7 @@ terraform apply -var="zone_id=O_SEU_ZONE_ID"
 
 Para auditorias de segurança avançadas, conformidade com normas europeias (RGPD / NIS 2), blindagem perimetral ou apoio técnico contínuo:
 
-* **Portal Corporativo:** **TAVARDT Portugal**
+* **Portal Corporativo:** **TAVARDT**
 * **Linha de Contacto Técnico:** [Apoio e Engenharia Especializada](https://ag.tavardt.com/pt/contactos/)
 
 ***
@@ -85,4 +85,8 @@ Para auditorias de segurança avançadas, conformidade com normas europeias (RGP
 ## Licença
 
 Distribuído sob a licença de código aberto MIT. Consulte o ficheiro [`LICENSE`](LICENSE) para mais detalhes.  
-Copyright (c) 2026 TAVARDT.
+Copyright
+
+***
+
+© 2026 TAVARDT. Todos os direitos reservados.
