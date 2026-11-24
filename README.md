@@ -3,11 +3,11 @@
 [![Licence MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Cloudflare WAF](https://img.shields.io/badge/Cloudflare-WAF%20Hardened-F38020.svg?logo=cloudflare)](https://cloudflare.com)
 [![Language](https://img.shields.io/badge/Language-Português%20(Portugal)-green.svg)](README.md)
-[![Diagnostics Suite](https://img.shields.io/badge/TAVARDT-Diagnostics-5b3cf5.svg)](https://tools.tavardt.com/pt/analise-cabecalhos-seguranca/)
+[![Diagnostics Suite](https://img.shields.io/badge/TAVARDT-Diagnostics-5b3cf5.svg)](https://tools.tavardt.com/pt/análise-cabecalhos-seguranca/)
 
 Regras de segurança perimetral e mitigação de ameaças na borda para Cloudflare, em estrita conformidade com o RGPD e as diretrizes do Centro Nacional de Cibersegurança (CNCS).
 
-Desenvolvido e mantido pela equipa de engenharia de segurança perimetral da **TAVARDT**.
+Desenvolvido e mantido pela equipa de engenharia de segurança perimetral da **TAVARDT Portugal**.
 
 > [!IMPORTANT]
 > **Arquitetura Universal & Agnóstica de Stack:** Este repositório **não é restrito ao WordPress**. Foi arquitetado para proteger **APIs REST, microsserviços modernos, aplicações web (Next.js, React, Vue) e plataformas de backend (Node.js, Python, Go, Laravel, Java)**. O bloqueio de pedidos a CMS legados atua como uma **camada de higiene perimetral ativa**, descartando o tráfego parasita de botnets na rede da Cloudflare (< 1ms) antes que sobrecarregue os seus servidores de origem.
@@ -89,4 +89,14 @@ Copyright
 
 ***
 
-© 2026 TAVARDT. Todos os direitos reservados.
+© 2026 TAVARDT Portugal. Todos os direitos reservados. Soberania e Defesa de Infraestrutura.
+
+***
+
+## Governança e Conformidade
+
+* **Organização**: TAVARDT-Portugal
+* **Jurisdição**: Portugal
+* **Padrões de Referência**: Normas e frameworks técnicos auditados em estrita observância das regras de soberania.
+
+Desenvolvido pela Divisão de Engenharia e Infraestrutura da TAVARDT Portugal. Todos os direitos reservados.
