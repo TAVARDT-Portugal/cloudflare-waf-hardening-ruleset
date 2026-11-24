@@ -1,4 +1,4 @@
-# Cloudflare WAF Hardening Ruleset & Blueprint de Segurança de Borda | TAVARDT Portugal
+# Cloudflare WAF Hardening Ruleset & Blueprint de Segurança de Borda
 
 [![Licence MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Cloudflare WAF](https://img.shields.io/badge/Cloudflare-WAF%20Hardened-F38020.svg?logo=cloudflare)](https://cloudflare.com)
@@ -85,4 +85,4 @@ Para auditorias de segurança avançadas, conformidade com normas europeias (RGP
 ## Licença
 
 Distribuído sob a licença de código aberto MIT. Consulte o ficheiro [`LICENSE`](LICENSE) para mais detalhes.  
-Copyright (c) 2026 TAVARDT Portugal.
+Copyright (c) 2026 TAVARDT.
