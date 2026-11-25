@@ -4,73 +4,94 @@
 [![Diagnostics Suite](https://img.shields.io/badge/TAVARDT-Diagnostics-5b3cf5.svg)](https://tools.tavardt.com/pt/análise-cabecalhos-seguranca/)
 [![Licence MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-Regras de segurança perimetral e mitigação de ameaças na borda para Cloudflare, em estrita conformidade com o RGPD e as diretrizes do Centro Nacional de Cibersegurança (CNCS).
+***
+
+Conjunto de regras customizadas para Cloudflare WAF, mitigação de bots e blueprint de segurança perimetral desenvolvido pela **TAVARDT**, em estrito alinhamento com as diretrizes do CNCS, o RGPD da União Europeia e ISO/IEC 27001.
 
 > [!IMPORTANT]
-> **Arquitetura Universal & Agnóstica de Stack:** Este repositório **não é restrito ao WordPress**. Foi arquitetado para proteger **APIs REST, microsserviços modernos, aplicações web (Next.js, React, Vue) e plataformas de backend (Node.js, Python, Go, Laravel, Java)**. O bloqueio de pedidos a CMS legados atua como uma **camada de higiene perimetral ativa**, descartando o tráfego parasita de botnets na rede da Cloudflare (< 1ms) antes que sobrecarregue os seus servidores de origem.
+> **Arquitetura Perimetral Universal e Agnóstica de Stack:** Este conjunto de regras não se restringe ao WordPress ou a plataformas monolíticas. Ele foi concebido para proteger APIs RESTful, microsserviços modernos, frontends SPA (Next.js, React, Vue) e backends (Node.js, Python, Go, Laravel, Java). O descarte de requisições de CMS legadas atua como uma camada ativa de higiene perimetral, bloqueando o ruído de botnets diretamente nos datacenters de borda da Cloudflare em menos de 1ms antes que o tráfego atinja os servidores de origem.
 
 ***
 
-### Matriz de Proteção Multi-Stack
+## Capacidades Centrais e Arquitetura Defensiva
 
-| Camada de Defesa | Vetores Mitigados | Plataformas & Stacks Protegidas |
-| :- | :- | :- |
-| **Isolamento de Credenciais** | Bloqueio de `.env`, `.git`, `.sql`, `package.json`, `composer.json` | **APIs, Next.js, Node.js, Python, Go, Laravel, React** |
-| **Mitigação de Reconhecimento** | Bloqueio de Nikto, SQLMap, Acunetix, Masscan, Gobuster, Nmap | **Qualquer plataforma web, microsserviço ou API pública** |
-| **Higiene de Verbos HTTP** | Rejeição de métodos desnecessários (`TRACE`, `TRACK`, `DEBUG`) | **APIs RESTful e arquiteturas de microsserviços** |
-| **Desafio em Painéis** | Desafio gerido em rotas críticas (`/admin`, `/wp-login.php`) | **Consolas de administração, portais ERP e back-offices** |
-| **Higiene de Ruído Cego** | Descarte na borda de pedidos a `/xmlrpc.php` e trackbacks | **Redução imediata de processamento nos servidores de origem** |
+* **Isolamento Perimetral de Credenciais**: Bloqueia de imediato na borda o acesso a arquivos `.env`, repositórios `.git`, despejos `.sql`, `config.json`, `package.json` e `composer.json` antes de chegarem à origem.
+* **Supressão de Ferramentas de Reconhecimento**: Intercepta scanners automáticos de vulnerabilidades (Nikto, SQLMap, Acunetix, Masscan, Zgrab, Nmap, DirBuster, Gobuster) na borda da Cloudflare.
+* **Higiene Perimetral Agnóstica de Stack**: Elimina vetores de abuso direcionados a CMS legados (`/xmlrpc.php`, trackbacks) em menos de 1ms, poupando CPU, memória e conexões TCP na origem.
+* **Higienização de Métodos HTTP**: Rejeita métodos perigosos ou de depuração (`TRACE`, `TRACK`, `DEBUG`) diretamente na barreira perimetral do firewall.
+* **Desafio Adaptativo para Rotas Administrativas**: Aplica Desafios Gerenciados da Cloudflare em portais de autenticação (`/admin`, `/wp-login.php`, `/administrator`), permitindo tráfego autorizado de ASN interno.
 
 ***
 
-## 1. Visão Geral da Arquitetura Perimetral
+## Vetores de Risco e Impacto Operacional
 
-Este repositório fornece regras declarativas prontas para aplicação na camada de borda da Cloudflare, prevenindo incidentes e violações de integridade em plataformas e infraestruturas digitais:
+Publicar aplicações e APIs na internet sem filtragem declarativa de borda expõe servidores de origem a varreduras automatizadas contínuas e esgotamento de recursos. O conjunto neutraliza cinco vetores críticos de risco no perímetro da CDN:
 
-* **Isolamento de Ficheiros Confidenciais:** Bloqueio perimetral de pedidos a ficheiros `.env`, repositórios `.git`, cópias de segurança `.sql` e manifestos de dependências (`composer.json`, `package.json`).
-* **Mitigação de Varreduras Automatizadas:** Interceção imediata de ferramentas de pesquisa e exploração conhecidas (Nikto, SQLMap, Acunetix, Masscan, Nmap, Gobuster, DirBuster).
-* **Blindagem de Plataformas CMS:** Bloqueio de pedidos abusivos direcionados a `/xmlrpc.php` e `/wp-trackback.php`.
-* **Filtragem de Verbos HTTP Inseguros:** Rejeição no perímetro de métodos de depuração desnecessários (`TRACE`, `TRACK`, `DEBUG`).
-* **Desafio Gerido em Rotas Críticas:** Proteção de interfaces administrativas (`/wp-login.php`, `/admin`) através de validações comportamentais sem fricção.
-
-***
-
-## 2. Diagnóstico Prévio de Segurança
-
-Antes de proceder à implementação em ambiente produtivo, valide a conformidade dos cabeçalhos de segurança e a resposta de rede do seu domínio através da plataforma da TAVARDT:
-
-* **Auditoria de Cabeçalhos e Certificados SSL:** Análise de Cabeçalhos de Segurança TAVARDT
-* **Catálogo Completo de Ferramentas de Diagnóstico:** **TAVARDT Tools Portugal**
+* **Exposição de Credenciais e Configurações (TAVARDT-WAF-01)**: Exploração de servidores mal configurados para captura de segredos em arquivos de ambiente, históricos Git e despejos de banco de dados.
+* **Varreduras Automatizadas de Exploração (TAVARDT-WAF-02)**: Sondagens hostis de scanners que sobrecarregam a largura de banda, elevam a carga de CPU e tentam localizar falhas conhecidas.
+* **Ataques de Amplificação e Força Bruta em CMS (TAVARDT-WAF-03 e TAVARDT-WAF-05)**: Redes zumbis tentando amplificação de negação de serviço via pingbacks XML-RPC ou ataques de força bruta em portais administrativos.
+* **Abuso de Protocolo via Adulteração de Verbos (TAVARDT-WAF-04)**: Agentes maliciosos que utilizam métodos HTTP obsoletos para contornar caches, explorar cross-site tracing (XST) ou forçar depurações.
+* **Esgotamento de Recursos e Indisponibilidade na Origem**: Tráfego malicioso não filtrado que ocupa threads de aplicação, gerando lentidão e indisponibilidade para usuários legítimos.
 
 ***
 
-## 3. Guia de Implementação
+## Implementação e Automação de Borda
 
-### Opção A: Importação Direta via API Cloudflare v4
+Aplique o conjunto de regras defensivas utilizando a API v4 declarativa da Cloudflare ou através de infraestrutura como código com Terraform:
 
-Utilize a especificação estruturada [`rules/ruleset.json`](rules/ruleset.json):
+### Opção A: Ingestão Direta via Cloudflare API v4
 
 ```bash
-curl -X PUT "https://api.cloudflare.com/client/v4/zones/O_SEU_ZONE_ID/rulesets/phases/http_request_firewall_custom/entrypoint" \
-     -H "Authorization: Bearer O_SEU_CLOUDFLARE_API_TOKEN" \
-     -H "Content-Type: application/json" \
-     -data @rules/ruleset.json
+# Aplicar regras de firewall customizadas via Cloudflare API v4
+curl -X PUT "https://api.cloudflare.com/client/v4/zones/YOUR_ZONE_ID/rulesets/phases/http_request_firewall_custom/entrypoint" \
+  -H "Authorization: Bearer YOUR_CLOUDFLARE_API_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d @rules/ruleset.json
 ```
 
-### Opção B: Provisionamento com Terraform
-
-Utilize a definição declarativa contida no diretório [`terraform/main.tf`](terraform/main.tf):
+### Opção B: Provisionamento Declarativo com Terraform
 
 ```bash
+# Acessar o diretório do módulo Terraform
 cd terraform
+
+# Inicializar o provedor Cloudflare
 terraform init
-terraform plan -var="zone_id=O_SEU_ZONE_ID"
-terraform apply -var="zone_id=O_SEU_ZONE_ID"
+
+# Planejar a aplicação declarativa das regras
+terraform plan -var="zone_id=YOUR_ZONE_ID"
+
+# Aplicar a configuração de firewall perimetral
+terraform apply -var="zone_id=YOUR_ZONE_ID"
 ```
 
 ***
 
-## 4. Links Úteis
+## Perguntas Técnicas Frequentes
+
+### Quais vetores de risco o conjunto de regras WAF da Cloudflare neutraliza na borda da CDN?
+
+O conjunto bloqueia scanners automatizados de reconhecimento, tentativas de exposição de arquivos sensíveis e variáveis de ambiente, abuso de XML-RPC e métodos HTTP de depuração diretamente na borda da Cloudflare. Esse descarte perimetral interrompe tráfego malicioso em menos de 1 milissegundo, preservando CPU, memória e conexões de banco de dados do servidor de origem.
+
+### Por que esta arquitetura de hardening é indicada para APIs REST e microsserviços modernos além de CMS?
+
+Scanners automatizados de vulnerabilidades sondam rotas públicas de modo indiscriminado, independentemente de a aplicação rodar em Node.js, Go, Python ou Next.js. Descartar sondagens cegas de CMS e requisições a arquivos sensíveis no perímetro mantém a higiene da infraestrutura livre de ruído computacional.
+
+### Como o conjunto impede o vazamento acidental de credenciais e despejos de bancos de dados?
+
+A regra TAVARDT-WAF-01 executa bloqueio imediato HTTP 403 para requisições com caminhos contendo `.env`, `.git`, `.sql`, `composer.json` ou `package.json`. Esse controle determinístico na borda impede que falhas de roteamento na origem exponham chaves de API privadas e estruturas de dados sensíveis.
+
+### Como funciona o desafio em rotas administrativas sem prejudicar serviços internos autorizados?
+
+A regra TAVARDT-WAF-05 aciona Desafios Gerenciados da Cloudflare em acessos a caminhos sensíveis como `/wp-login.php`, `/admin` e `/administrator`. Ela inclui uma exceção explícita para o ASN 13335 da Cloudflare, assegurando que rotinas internas e sondas de monitoramento operem sem bloqueios indevidos.
+
+### Quais são as diferenças operacionais entre implantar via API v4 da Cloudflare e utilizar Terraform?
+
+A importação de `rules/ruleset.json` via API v4 proporciona uma implementação direta e sem dependências locais na fase `http_request_firewall_custom`. Já o provisionamento com o módulo `terraform/main.tf` viabiliza gerenciamento como código, detecção de desvios de configuração e padronização entre múltiplas zonas de produção.
+
+***
+
+## Links Úteis
 
 * **Portal Corporativo:** https://ag.tavardt.com/pt/
 * **Suíte de Diagnósticos:** https://tools.tavardt.com/pt/
@@ -79,9 +100,8 @@ terraform apply -var="zone_id=O_SEU_ZONE_ID"
 ***
 
 ### Licença
-
-Distribuído sob a licença de código aberto MIT.
+Distribuído sob a Licença MIT. Consulte [LICENSE](LICENSE) para obter detalhes completos.
 
 ***
 
-© 2026 TAVARDT Portugal. Todos os direitos reservados. Soberania e Defesa de Infraestrutura.
+© 2026 TAVARDT. Todos os direitos reservados.
